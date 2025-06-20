@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "local"
+    "url": "https://github.com/KonstiDoll/md2pdf.git"
   },
   "engines": {
     "node": ">=16.0.0"

@@ -3,7 +3,7 @@
 ## One-Line Installation (macOS/Linux)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/your-repo/md2pdf/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/KonstiDoll/md2pdf/main/install.sh | bash
 ```
 
 ## Manual Installation (5 Minuten)
@@ -17,7 +17,7 @@ node --version  # sollte >= 16.0.0 sein
 ### 2. Download & Setup
 ```bash
 # Tool herunterladen
-git clone <your-repo-url> ~/md2pdf
+git clone https://github.com/KonstiDoll/md2pdf.git ~/md2pdf
 # oder ZIP herunterladen und entpacken nach ~/md2pdf
 
 cd ~/md2pdf

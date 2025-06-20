@@ -17,7 +17,7 @@ Ein moderner Markdown zu PDF Konvertierer mit perfekter **Emoji-Unterstützung**
 ### **Methode 1: Clone & Install (Empfohlen)**
 ```bash
 # Repository klonen/kopieren
-git clone <repository-url> md2pdf
+git clone https://github.com/KonstiDoll/md2pdf.git md2pdf
 # oder Verzeichnis kopieren nach ~/md2pdf
 
 cd md2pdf
