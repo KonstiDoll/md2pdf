@@ -101,7 +101,7 @@ function generateAngebotHeaderCSS(config) {
     color: ${config.colors.text};
   }
   .angebot-header {
-    height: 140px;
+    height: 150px;
     border-bottom: 2px solid #e0e0e0;
     display: flex;
     align-items: center;
@@ -121,10 +121,10 @@ function generateAngebotHeaderCSS(config) {
     align-items: baseline;
   }
   .header-left, .footer-left { flex: 1; }
-  .footer-center { flex: 1; text-align: center; }
+  .footer-center { flex: 1; text-align: left; }
   .header-right, .footer-right { flex: 1; text-align: right; }
   
-  .company-info { font-size: 9pt; line-height: 1.4; margin-top: 10px; }
+  .company-info { font-size: 9pt; line-height: 1.4; margin-top: 0px; }
   .angebot-title { font-size: 14pt; color: ${config.colors.primary}; font-weight: bold; margin-bottom: 5px; -webkit-print-color-adjust: exact; }
   .angebot-dates { 
     font-size: 9pt;
@@ -189,6 +189,13 @@ function generateMainCSS(config) {
   h3 { 
     font-size: 1.3rem; 
     color: #34495e;
+  }
+  
+  hr {
+    border: none;
+    border-top: 2px solid #ecf0f1;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
   }
   
   /* Emoji-Unterstützung */
@@ -375,7 +382,7 @@ async function convertMarkdownToPDF(inputPath, outputPath = null, options = {}) 
       const logoDataURL = loadLogoAsBase64(config.logo, configPath);
       
       if (logoDataURL) {
-        logoHTML = `<img src="${logoDataURL}" style="display: block; width: ${config.logo.width}; height: auto; max-height: 60px; object-fit: contain;" alt="Logo" />`;
+        logoHTML = `<img src="${logoDataURL}" style="display: block; width: ${config.logo.width}; height: auto; max-height: 80px; object-fit: contain;" alt="Logo" />`;
       }
       
       return `
