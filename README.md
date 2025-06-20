@@ -1,163 +1,80 @@
-# 📄 md2pdf - Modern Markdown to PDF Converter
+# 📄 md2pdf - Moderner Markdown zu PDF Konverter
 
-Ein moderner Markdown zu PDF Konvertierer mit perfekter **Emoji-Unterstützung** und **Helvetica Font**.
+Ein flexibler Markdown zu PDF Konvertierer mit professionellem Design, Emoji-Unterstützung und einem speziellen Modus für Angebote.
 
 ## ✨ Features
 
-- ✅ **Perfekte Emoji-Darstellung** - alle Unicode-Emojis funktionieren (🎯📋💰📢💻🎨🔄📊🛠️)
-- ✅ **Helvetica Font** - professionelle Typografie
-- ✅ **Modernes CSS-Styling** - sauberes, lesbares Layout
-- ✅ **Automatisches Öffnen** - PDF wird nach Erstellung geöffnet
-- ✅ **Inhaltsverzeichnis** - automatisch aus Überschriften generiert
-- ✅ **Wildcard-Unterstützung** - konvertiere mehrere Dateien auf einmal
-- ✅ **Schnell** - HTML→PDF ist schneller als LaTeX
+- ✅ **Angebots-Modus**: Erstellt professionelle Angebote mit eigenem Briefkopf (Logo, Firmendaten) und Fußzeile.
+- ✅ **Flexible Konfiguration**: Farben, Logo (SVG/PNG/JPG) und Firmendaten werden über eine `config.json` gesteuert.
+- ✅ **Professionelle Typografie**: Verwendet Helvetica oder Inter für saubere, moderne Dokumente.
+- ✅ **Perfekte Emoji-Darstellung**: Alle Unicode-Emojis funktionieren dank Browser-Rendering.
+- ✅ **PDF-Native Header/Footer**: Korrekte Positionierung von Kopf- und Fußzeilen ohne Überlappung.
+- ✅ **Wildcard-Unterstützung**: `md2pdf *.md` konvertiert mehrere Dateien auf einmal.
 
-## 🚀 Installation
+## 🚀 Installation & Konfiguration
 
-### **Methode 1: Clone & Install (Empfohlen)**
+### 1. Klonen und Installieren
 ```bash
-# Repository klonen/kopieren
+# Repository in einen Ordner Ihrer Wahl klonen
 git clone https://github.com/KonstiDoll/md2pdf.git md2pdf
-# oder Verzeichnis kopieren nach ~/md2pdf
-
 cd md2pdf
 
-# Dependencies installieren
+# Abhängigkeiten installieren
 npm install
 
-# Global verfügbar machen
+# Befehl global verfügbar machen
 npm link
-# oder bei Rechte-Problemen:
-mkdir -p ~/bin
-ln -sf "$(pwd)/bin/md2pdf" ~/bin/md2pdf
-echo 'export PATH="$HOME/bin:$PATH"' >> ~/.zshrc
-source ~/.zshrc
 ```
+*Falls `npm link` Rechteprobleme verursacht, finden Sie im `INSTALL.md` alternative Methoden.*
 
-### **Methode 2: Manual Setup**
+### 2. Konfigurieren
+Das Tool wird über eine zentrale `config.json`-Datei gesteuert.
+
 ```bash
-# Verzeichnis erstellen
-mkdir ~/md2pdf
-cd ~/md2pdf
-
-# Dependencies installieren
-npm init -y
-npm install puppeteer marked glob
-
-# Skript-Dateien kopieren (md2pdf-html.js und bin/md2pdf)
-# Dann global verfügbar machen wie oben
+# Vorlage kopieren
+cp config.template.json config.json
 ```
 
-### **Methode 3: Direkte Verwendung**
-```bash
-# Nur für gelegentliche Nutzung
-cd /pfad/zu/md2pdf
-node md2pdf-html.js input.md output.pdf
-```
+Öffnen Sie nun `config.json` und passen Sie die Werte an Ihre Bedürfnisse an:
+- **`company`**: Ihre Firmendaten.
+- **`bank`**: Ihre Bankverbindung.
+- **`colors`**: Passen Sie `primary` und `text` an Ihr Corporate Design an.
+- **`logo`**: Geben Sie den Pfad zu Ihrer Logo-Datei (`.svg`, `.png`, `.jpg`) an und passen Sie die Breite an.
 
 ## 📖 Verwendung
 
-### Globaler Befehl (nach Installation):
+### Standard-Konvertierung
+Konvertiert eine einfache Markdown-Datei in ein PDF.
 ```bash
-# Einzelne Datei
-md2pdf README.md
-
-# Mit spezifischem Output
-md2pdf README.md output.pdf
-
-# Alle MD-Dateien im aktuellen Verzeichnis
-md2pdf *.md
-
-# Ohne automatisches Öffnen
-md2pdf document.md --no-open
-
-# Hilfe anzeigen
-md2pdf --help
+md2pdf meine-datei.md
 ```
 
-### Lokale Verwendung (ohne Installation):
+### Angebots-Modus
+Aktiviert den Angebots-Modus mit Header und Footer, wie in `config.json` definiert.
 ```bash
-# Im Projektverzeichnis
-node /pfad/zu/md2pdf/md2pdf-html.js input.md output.pdf
+md2pdf --angebot mein-angebot.md
+```
+Damit der Header korrekt gefüllt wird, muss die Markdown-Datei folgende Felder enthalten:
+```markdown
+**Auftraggeber:** Max Mustermann GmbH
+**Adresse:** Musterstraße 1, 12345 Musterstadt
+**Angebotsnummer:** 2024-001
+**Datum:** 01. August 2024
+**Gültigkeitsdauer:** 30 Tage
 ```
 
-## 🎨 Styling
-
-Das Tool verwendet ein modernes, professionelles Design:
-
-- **Font**: Helvetica (primär), Inter (Fallback)
-- **Code**: Monaco, SF Mono, Fira Code
-- **Farben**: Professionelle Farbpalette mit blauer Akzentfarbe
-- **Layout**: Optimiert für A4-Druck mit 2cm Rändern
-- **Typografie**: Saubere Hierarchie mit guter Lesbarkeit
+### Weitere Optionen
+| Option | Beschreibung |
+|---|---|
+| `[output.pdf]` | Optionaler Name für die Ausgabedatei. |
+| `--no-open` | Verhindert das automatische Öffnen der PDF. |
+| `--save-html` | Speichert die HTML-Datei zur Fehlersuche anstatt ein PDF zu erstellen. |
 
 ## 🔧 Technische Details
 
-- **Engine**: Puppeteer (Chromium-basiert)
-- **Markdown-Parser**: marked.js
-- **Output**: PDF mit eingebetteten Fonts
-- **Emoji-Support**: Native Browser-Unterstützung
-- **Dependencies**: puppeteer, marked, glob
-
-## 📋 Systemvoraussetzungen
-
-- **Node.js** ≥ 16.0.0
-- **Betriebssystem**: macOS, Linux, Windows
-- **Internet**: Für initiale Chromium-Installation (Puppeteer)
-- **Speicher**: ~200MB für Chromium + Dependencies
-
-## 🆚 Vergleich zu anderen Tools
-
-| Feature | md2pdf | pandoc + LaTeX | andere Tools |
-|---------|--------|----------------|--------------|
-| Emoji-Support | ✅ Perfekt | ❌ Problematisch | ⚠️ Begrenzt |
-| Font-Control | ✅ Helvetica | ⚠️ Kompliziert | ⚠️ Begrenzt |
-| Setup | ✅ Einfach | ❌ Komplex | ⚠️ Variiert |
-| Geschwindigkeit | ✅ Schnell | ⚠️ Langsam | ⚠️ Variiert |
-| Styling | ✅ Modern | ⚠️ LaTeX-typisch | ⚠️ Begrenzt |
-
-## 🛠️ Entwicklung
-
-```bash
-# Dependencies installieren
-npm install
-
-# Testen
-npm test
-
-# Einzelne Datei konvertieren
-npm start input.md
-```
-
-## 🚨 Troubleshooting
-
-### Installation schlägt fehl:
-```bash
-# Bei npm link Problemen (Rechte):
-mkdir -p ~/bin
-ln -sf "$(pwd)/bin/md2pdf" ~/bin/md2pdf
-
-# PATH prüfen:
-echo $PATH | grep $HOME/bin
-
-# Falls nicht im PATH:
-echo 'export PATH="$HOME/bin:$PATH"' >> ~/.zshrc
-source ~/.zshrc
-```
-
-### Puppeteer Probleme:
-```bash
-# Chromium manuell installieren:
-npx puppeteer browsers install chrome
-
-# Bei Linux zusätzliche Dependencies:
-sudo apt-get install -y gconf-service libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
-```
-
-### Emojis werden nicht angezeigt:
-- Das Tool nutzt Browser-Engine → Emojis sollten immer funktionieren
-- Falls nicht: Font-Fallbacks sind konfiguriert
-- Prüfen Sie die PDF in verschiedenen Viewern
+- **Engine**: Puppeteer (Chromium-basiert) für präzise HTML-zu-PDF-Konvertierung.
+- **Markdown-Parser**: `marked.js` für schnelle und GFM-kompatible Verarbeitung.
+- **Konfiguration**: Alle Layout-relevanten Daten sind in `config.json` ausgelagert.
 
 ## 📝 Lizenz
 

@@ -4,6 +4,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Personal configuration
+config.json
+
 # Runtime data
 pids
 *.pid
@@ -123,4 +126,7 @@ Thumbs.db
 *~
 
 # Puppeteer cache
-.puppeteerrc.cjs 
+.puppeteerrc.cjs
+
+# Environment files
+.env.local 

@@ -21,9 +21,10 @@
   "author": "Scenerii Tools",
   "license": "MIT",
   "dependencies": {
-    "puppeteer": "^21.0.0",
-    "marked": "^12.0.0",
-    "glob": "^10.0.0"
+    "glob": "^11.0.0",
+    "marked": "^15.0.0",
+    "mime-types": "^3.0.1",
+    "puppeteer": "^24.0.0"
   },
   "repository": {
     "type": "git",

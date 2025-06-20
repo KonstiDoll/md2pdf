@@ -1,72 +1,31 @@
 #!/usr/bin/env node
 
+const { spawn } = require('child_process');
 const path = require('path');
-const { convertMarkdownToPDF } = require('../md2pdf-html.js');
 
-async function main() {
-  const args = process.argv.slice(2);
-  
-  if (args.length === 0 || args.includes('--help') || args.includes('-h')) {
-    console.log(`
-📄 md2pdf - Markdown zu PDF Konvertierer mit Emoji-Unterstützung
+// Pfad zum Hauptskript
+const scriptPath = path.join(__dirname, '..', 'md2pdf-html.js');
 
-Verwendung:
-  md2pdf <input.md> [output.pdf]        # Einzelne Datei
-  md2pdf *.md                           # Alle MD-Dateien im Verzeichnis
-  md2pdf file.md --no-open              # Ohne automatisches Öffnen
-  
-Optionen:
-  --no-open     PDF nicht automatisch öffnen
-  --help, -h    Diese Hilfe anzeigen
-  
-Beispiele:
-  md2pdf README.md
-  md2pdf README.md output.pdf
-  md2pdf *.md
-  md2pdf document.md --no-open
-  
-Features:
-  ✅ Perfekte Emoji-Darstellung (🎯📋💰📢💻🎨)
-  ✅ Helvetica Font
-  ✅ Modernes Styling
-  ✅ Automatisches Öffnen
-  ✅ Inhaltsverzeichnis aus Überschriften
-    `);
-    return;
+// Alle Argumente, die diesem Skript übergeben wurden, an das Hauptskript weiterleiten
+const args = process.argv.slice(2);
+
+// Den Node.js-Prozess starten
+const nodeProcess = spawn('node', [scriptPath, ...args], {
+  // Wichtig: Leitet die Ausgabe (stdout, stderr) des Kindprozesses direkt an
+  // den Hauptprozess weiter. Das erhält Farben und interaktive Ausgaben.
+  stdio: 'inherit' 
+});
+
+// Fehlerbehandlung für den Fall, dass der Prozess nicht gestartet werden kann
+nodeProcess.on('error', (err) => {
+  console.error('❌ Fehler beim Starten des Node.js-Skripts:', err);
+});
+
+// Auf das Schließen des Prozesses warten und den Exit-Code übernehmen
+nodeProcess.on('close', (code) => {
+  if (code !== 0) {
+    // Ein Fehler im Hauptskript ist bereits durch stdio: 'inherit' sichtbar,
+    // aber wir stellen sicher, dass der Wrapper auch einen Fehler-Exit-Code zurückgibt.
+    process.exit(code);
   }
-  
-  const inputFile = args[0];
-  const outputFile = args.find(arg => arg.endsWith('.pdf') && !arg.includes('*'));
-  const noOpen = args.includes('--no-open');
-  
-  try {
-    if (inputFile.includes('*')) {
-      const glob = require('glob');
-      const files = glob.sync(inputFile);
-      
-      if (files.length === 0) {
-        console.log('❌ Keine Markdown-Dateien gefunden.');
-        return;
-      }
-      
-      console.log(`📚 Konvertiere ${files.length} Dateien...`);
-      
-      for (const file of files) {
-        try {
-          await convertMarkdownToPDF(file, null, { openAfter: !noOpen });
-        } catch (error) {
-          console.error(`❌ Fehler bei ${file}:`, error.message);
-        }
-      }
-    } else {
-      await convertMarkdownToPDF(inputFile, outputFile, { openAfter: !noOpen });
-    }
-  } catch (error) {
-    console.error('❌ Fehler:', error.message);
-    process.exit(1);
-  }
-}
-
-if (require.main === module) {
-  main().catch(console.error);
-}
+});
