@@ -1,0 +1,35 @@
+{
+  "name": "md2pdf-emoji",
+  "version": "1.0.0",
+  "description": "Modern Markdown to PDF converter with emoji support and Helvetica font",
+  "main": "md2pdf-html.js",
+  "bin": {
+    "md2pdf": "./bin/md2pdf"
+  },
+  "scripts": {
+    "start": "node md2pdf-html.js",
+    "test": "node md2pdf-html.js test.md"
+  },
+  "keywords": [
+    "markdown",
+    "pdf",
+    "emoji",
+    "helvetica",
+    "converter",
+    "cli"
+  ],
+  "author": "Scenerii Tools",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^21.0.0",
+    "marked": "^12.0.0",
+    "glob": "^10.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "local"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
