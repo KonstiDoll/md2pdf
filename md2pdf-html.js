@@ -76,7 +76,7 @@ function loadConfig() {
 }
 
 // Markdown-Renderer konfigurieren
-marked.setOptions({
+marked.use({
   breaks: true,
   gfm: true,
   headerIds: true,
@@ -258,21 +258,29 @@ function generateMainCSS(config) {
   table {
     border-collapse: collapse;
     width: 100%;
-    margin: 1rem 0;
+    margin: 1.5rem 0;
     font-size: 0.95em;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
   }
   
   table th,
   table td {
-    border: 1px solid #ddd;
+    border: 1px solid #e0e0e0;
     text-align: left;
-    padding: 0.6rem;
+    padding: 0.8rem 1rem;
   }
   
   table th {
-    background-color: #f2f2f2;
+    background-color: #f7f7f7;
     font-weight: 600;
     color: #2c3e50;
+    -webkit-print-color-adjust: exact;
+  }
+
+  table tr:nth-child(even) {
+    background-color: #fdfdfd;
+    -webkit-print-color-adjust: exact;
   }
   
   /* Blockquotes */
